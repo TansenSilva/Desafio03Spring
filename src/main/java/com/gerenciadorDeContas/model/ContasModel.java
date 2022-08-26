@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -24,22 +25,23 @@ public class ContasModel {
     private Long id;
 
     @Column(length = 50)
+    @NotBlank(message = "Campo nome deve conter um valor")
     private String nome;
 
-    @Column(length = 20,nullable = false)
+    @Column(length = 20)
     private double valor;
 
+    @Column(length = 50)
     @Enumerated(value = EnumType.STRING)
-    @Column(length = 50,nullable = false)
     private Tipo tipo;
 
-    @Column(length = 20,nullable = false)
+    @Column(length = 20)
     private LocalDate dataDeVencimento;
 
     @Column(length = 20)
     private LocalDateTime dataDePagamento;
 
-    @Enumerated(value = EnumType.STRING)
     @Column(length = 20,nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private Status status;
 }

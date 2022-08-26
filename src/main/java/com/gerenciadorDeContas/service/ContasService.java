@@ -3,7 +3,7 @@ package com.gerenciadorDeContas.service;
 import com.gerenciadorDeContas.Enum.Status;
 import com.gerenciadorDeContas.Enum.StatusConta;
 import com.gerenciadorDeContas.Enum.Tipo;
-import com.gerenciadorDeContas.model.BuscaContas;
+import com.gerenciadorDeContas.filter.BuscarContas;
 import com.gerenciadorDeContas.model.ContasModel;
 import com.gerenciadorDeContas.model.UpdateStatusConta;
 import com.gerenciadorDeContas.repository.ContasRepository;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,19 +33,8 @@ public class ContasService {
         return repository.findByTipo(tipo);
     }
 
-    public List<BuscaContas> buscarTodos(){
-        List<BuscaContas> listaDeContas = new ArrayList<>();
-        List<ContasModel> listaModel = repository.findAll();
-
-        for (ContasModel conta: listaModel){
-            BuscaContas buscaContas = new BuscaContas();
-            buscaContas.setId(conta.getId());
-            buscaContas.setNome(conta.getNome());
-            buscaContas.setValor(conta.getValor());
-            buscaContas.setStatus(conta.getStatus());
-            listaDeContas.add(buscaContas);
-        }
-        return listaDeContas;
+    public List<BuscarContas> buscarTodos(){
+        return repository.findAllTodasContas();
     }
 
     public ContasModel cadastrar(ContasModel conta){
@@ -64,6 +52,10 @@ public class ContasService {
             conta.get().setDataDePagamento(dataAtual);
         }
         return repository.save(conta.get());
+    }
+
+    public void deletar(Long id){
+        repository.deleteById(id);
     }
 
 
