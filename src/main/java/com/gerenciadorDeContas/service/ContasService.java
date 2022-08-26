@@ -2,6 +2,7 @@ package com.gerenciadorDeContas.service;
 
 import com.gerenciadorDeContas.Enum.Status;
 import com.gerenciadorDeContas.Enum.StatusConta;
+import com.gerenciadorDeContas.Enum.Tipo;
 import com.gerenciadorDeContas.model.BuscaContas;
 import com.gerenciadorDeContas.model.ContasModel;
 import com.gerenciadorDeContas.model.UpdateStatusConta;
@@ -23,6 +24,14 @@ public class ContasService {
 
     public Optional<ContasModel> buscarId(Long id){
         return repository.findById(id);
+    }
+
+    public List<ContasModel> buscarStatus(Status status){
+        return repository.findByStatus(status);
+    }
+
+    public List<ContasModel> buscarTipo(Tipo tipo){
+        return repository.findByTipo(tipo);
     }
 
     public List<BuscaContas> buscarTodos(){
@@ -56,5 +65,6 @@ public class ContasService {
         }
         return repository.save(conta.get());
     }
+
 
 }

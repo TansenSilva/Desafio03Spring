@@ -1,5 +1,7 @@
 package com.gerenciadorDeContas.controller;
 
+import com.gerenciadorDeContas.Enum.Status;
+import com.gerenciadorDeContas.Enum.Tipo;
 import com.gerenciadorDeContas.model.BuscaContas;
 import com.gerenciadorDeContas.model.ContasModel;
 import com.gerenciadorDeContas.model.UpdateStatusConta;
@@ -21,6 +23,16 @@ public class ContasController {
     @GetMapping(path = "/contas/{id}")
     public Optional<ContasModel> buscarPorId(@PathVariable Long id){
         return service.buscarId(id);
+    }
+
+    @GetMapping(path = "/contas/status/{status}")
+    public ResponseEntity<List<ContasModel>> buscarContaPorStatus(@PathVariable Status status) {
+        return ResponseEntity.ok(service.buscarStatus(status));
+    }
+
+    @GetMapping(path = "/contas/tipo/{tipo}")
+    public ResponseEntity<List<ContasModel>> buscarContaPorTipo(@PathVariable Tipo tipo) {
+        return ResponseEntity.ok(service.buscarTipo(tipo));
     }
 
     @GetMapping(path = "/contas")
