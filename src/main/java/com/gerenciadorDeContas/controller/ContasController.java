@@ -56,9 +56,9 @@ public class ContasController {
     }
 
     @DeleteMapping(path = "/contas/{id}")
-    public void deletarContaCadastrada(@PathVariable Long id){
-        System.out.println("conta deletada");
+    public String deletarContaCadastrada(@PathVariable Long id){
      service.deletar(id);
+     return "Conta deletada com sucesso!";
     }
 
     //método de validação pra atributo do tipo String

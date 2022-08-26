@@ -27,7 +27,7 @@ public class ExceptionHandlerConta {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> exceptionHandlerBuscaPorTipo(MethodArgumentTypeMismatchException ex) {
-        return new ResponseEntity<>("Tipo não existente, favor informar um Tipo válido para realizar a busca.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Filtro de busca não existente, favor informar um válido para realizar a busca.", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
