@@ -23,8 +23,8 @@ public class ContasReceberController {
         return ResponseEntity.ok(service.buscarTodas());
     }
 
-    @GetMapping(value = "/tipoRecebimento/{TipoRecebimento}/{id}")
-    public ResponseEntity<List<ContasReceber>> buscarContaPorTipoRecebimento(TipoRecebimento tipoRecebimento,@PathVariable Long id){
+    @GetMapping(value = "/recebimento/{tipoRecebimento}")
+    public ResponseEntity<List<ContasReceber>> buscarContaPorTipoRecebimento(@PathVariable TipoRecebimento tipoRecebimento){
         return ResponseEntity.ok(service.buscarTipoRecebimento(tipoRecebimento));
     }
 

@@ -5,34 +5,38 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Validated
 @Table(name = "contas_receber")
-@Entity
-public class ContasReceber {
+public class ContasReceber implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Campo recebimento deve conter um valor")
+    @NotNull
+    @NotEmpty
     private String recebimento;
 
+    @NotNull
     private BigDecimal valorRecebimento;
 
     @Enumerated(value = EnumType.STRING)
     private TipoRecebimento tipoRecebimento;
 
-    @NotNull
     private LocalDate dataDeVencimento;
 
     private LocalDate dataDeRecebimento = LocalDate.now();

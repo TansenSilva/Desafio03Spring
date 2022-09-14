@@ -4,29 +4,33 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Validated
 @Table(name = "endereco")
-@Entity
-public class Endereco {
+public class Endereco implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Campo logradouro deve conter um valor")
+    @NotEmpty
     private String logradouro;
 
-    @NotBlank(message = "Campo bairro deve conter um valor")
+    @NotEmpty
     private String bairro;
 
-    @NotBlank(message = "Campo cep deve conter um valor")
+    @NotEmpty
     private String cep;
 
     private String pontoReferencia;
