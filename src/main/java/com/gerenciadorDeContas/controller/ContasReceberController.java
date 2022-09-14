@@ -30,6 +30,11 @@ public class ContasReceberController {
     public ResponseEntity<List<ContasReceber>> buscarContaPorRecebimentoAlugueis(@PathVariable RecebimentoAlugueis recebimentoAlugueis){
         return ResponseEntity.ok(service.buscarRecebimento(recebimentoAlugueis));
     }
+
+    @GetMapping(path = "/datadevencimento/{dataDeVencimento}")
+    public ResponseEntity<List<ContasReceber>> buscarContaPorDataDeVencimento(@PathVariable String dataDeVencimento) {
+        return ResponseEntity.ok(service.buscarPorVencimento(dataDeVencimento));
+    }
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<ContasReceber>> buscarRecebimentoPorId(@PathVariable Long id){
         return ResponseEntity.ok(service.buscarPorId(id));

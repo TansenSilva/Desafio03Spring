@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,11 @@ public class ContasReceberService {
 
     public List<ContasReceber> buscarTipoRecebimento(TipoRecebimento tipoRecebimento){
         return repository.findByTipoRecebimento(tipoRecebimento);
+    }
+
+    public List<ContasReceber> buscarPorVencimento(String dataDeVencimento) {
+        LocalDate localDate = LocalDate.parse(dataDeVencimento);
+        return repository.findByDataDeVencimento(localDate);
     }
 
     public List<ContasReceber> buscarRecebimento(RecebimentoAlugueis recebimento){
