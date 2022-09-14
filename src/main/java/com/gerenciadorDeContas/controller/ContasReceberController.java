@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/recebimentos")
+@RequestMapping(value = "/contasReceber")
 public class ContasReceberController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class ContasReceberController {
         return ResponseEntity.ok(service.buscarTodas());
     }
 
-    @GetMapping(value = "/recebimento/{tipoRecebimento}")
+    @GetMapping(value = "/recebimentos/{tipoRecebimento}")
     public ResponseEntity<List<ContasReceber>> buscarContaPorTipoRecebimento(@PathVariable TipoRecebimento tipoRecebimento){
         return ResponseEntity.ok(service.buscarTipoRecebimento(tipoRecebimento));
     }
@@ -41,5 +41,11 @@ public class ContasReceberController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<ContasReceber> alterarRecebimento(@RequestBody ContasReceber conta){
         return ResponseEntity.ok(service.alterar(conta));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deletarRecebimento(@PathVariable Long id){
+        service.deletar(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deletado");
     }
 }

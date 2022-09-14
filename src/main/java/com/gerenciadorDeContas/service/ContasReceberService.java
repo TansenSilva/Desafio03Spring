@@ -49,4 +49,8 @@ public class ContasReceberService {
 
         return repository.save(conta);
     }
+
+    public void deletar(Long id){
+        repository.deleteById(id);
+    }
 }
