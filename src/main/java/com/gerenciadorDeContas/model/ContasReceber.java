@@ -1,5 +1,7 @@
 package com.gerenciadorDeContas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gerenciadorDeContas.Enum.RecebimentoAlugueis;
 import com.gerenciadorDeContas.Enum.TipoRecebimento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +44,9 @@ public class ContasReceber implements Serializable {
     private LocalDate dataDeRecebimento = LocalDate.now();
 
     private String status;
+
+    @Enumerated(value = EnumType.STRING)
+    private RecebimentoAlugueis recebimentos;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id",referencedColumnName = "id")

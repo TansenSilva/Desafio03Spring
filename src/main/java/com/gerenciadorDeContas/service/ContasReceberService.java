@@ -1,5 +1,6 @@
 package com.gerenciadorDeContas.service;
 
+import com.gerenciadorDeContas.Enum.RecebimentoAlugueis;
 import com.gerenciadorDeContas.Enum.TipoRecebimento;
 import com.gerenciadorDeContas.calculoRecebimentoAlugueis.RecebimentoFactory;
 import com.gerenciadorDeContas.model.ContasReceber;
@@ -25,27 +26,36 @@ public class ContasReceberService {
         return repository.findByTipoRecebimento(tipoRecebimento);
     }
 
+    public List<ContasReceber> buscarRecebimento(RecebimentoAlugueis recebimento){
+        return repository.findByRecebimentos(recebimento);
+    }
+
     public Optional<ContasReceber> buscarPorId(Long id){
         return repository.findById(id);
     }
-
     public ContasReceber cadastrar(ContasReceber conta){
+//        RecebimentoFactory recebimento = new RecebimentoFactory();
+//        BigDecimal total = recebimento.valorRecebimento(conta).calculoRecebimento(conta);
+//        conta.setValorRecebimento(total);
+//        return repository.save(conta);
+        RecebimentoFactory factory = new RecebimentoFactory();
+        RecebimentoAlugueis recebimento = factory.recebimento(conta);
+        conta.setRecebimentos(recebimento);
 
-        RecebimentoFactory recebimento = new RecebimentoFactory();
-
-        BigDecimal total = recebimento.valorRecebimento(conta).calculoRecebimento(conta);
-        conta.setValorRecebimento(total);
-
+        BigDecimal valor = (BigDecimal) factory.valorRecebimento(conta.getRecebimentos(),conta.getTipoRecebimento()).calculoRecebimento(conta);
+        conta.setValorRecebimento(valor);
 
         return repository.save(conta);
     }
 
     public ContasReceber alterar(ContasReceber conta){
 
-        RecebimentoFactory recebimento = new RecebimentoFactory();
-        BigDecimal total = recebimento.valorRecebimento(conta).calculoRecebimento(conta);
-        conta.setValorRecebimento(total);
+        RecebimentoFactory factory = new RecebimentoFactory();
+        RecebimentoAlugueis recebimento = factory.recebimento(conta);
+        conta.setRecebimentos(recebimento);
 
+        BigDecimal valor = (BigDecimal) factory.valorRecebimento(conta.getRecebimentos(),conta.getTipoRecebimento()).calculoRecebimento(conta);
+        conta.setValorRecebimento(valor);
 
         return repository.save(conta);
     }

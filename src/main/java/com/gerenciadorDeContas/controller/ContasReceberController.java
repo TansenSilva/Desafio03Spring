@@ -1,5 +1,6 @@
 package com.gerenciadorDeContas.controller;
 
+import com.gerenciadorDeContas.Enum.RecebimentoAlugueis;
 import com.gerenciadorDeContas.Enum.TipoRecebimento;
 import com.gerenciadorDeContas.model.ContasReceber;
 import com.gerenciadorDeContas.service.ContasReceberService;
@@ -14,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/contasReceber")
 public class ContasReceberController {
-
     @Autowired
     ContasReceberService service;
 
@@ -22,17 +22,18 @@ public class ContasReceberController {
     public ResponseEntity<List<ContasReceber>> buscarTodosRecebimentos(){
         return ResponseEntity.ok(service.buscarTodas());
     }
-
     @GetMapping(value = "/recebimentos/{tipoRecebimento}")
     public ResponseEntity<List<ContasReceber>> buscarContaPorTipoRecebimento(@PathVariable TipoRecebimento tipoRecebimento){
         return ResponseEntity.ok(service.buscarTipoRecebimento(tipoRecebimento));
     }
-
+    @GetMapping(value = "/alugueis/{RecebimentoAlugeis}")
+    public ResponseEntity<List<ContasReceber>> buscarContaPorRecebimentoAlugueis(@PathVariable RecebimentoAlugueis recebimentoAlugueis){
+        return ResponseEntity.ok(service.buscarRecebimento(recebimentoAlugueis));
+    }
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<ContasReceber>> buscarRecebimentoPorId(@PathVariable Long id){
         return ResponseEntity.ok(service.buscarPorId(id));
     }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ContasReceber> cadastrarRecebimento(@RequestBody ContasReceber conta){
@@ -42,7 +43,6 @@ public class ContasReceberController {
     public ResponseEntity<ContasReceber> alterarRecebimento(@RequestBody ContasReceber conta){
         return ResponseEntity.ok(service.alterar(conta));
     }
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deletarRecebimento(@PathVariable Long id){
         service.deletar(id);
