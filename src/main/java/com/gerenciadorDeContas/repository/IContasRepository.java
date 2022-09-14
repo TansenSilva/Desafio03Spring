@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ContasRepository extends JpaRepository<ContasModel,Long> {
+public interface IContasRepository extends JpaRepository<ContasModel,Long> {
     List<ContasModel>findByStatus(Status status);
 
     List<ContasModel>findByTipo(Tipo tipo);
@@ -19,5 +19,4 @@ public interface ContasRepository extends JpaRepository<ContasModel,Long> {
     @Query("select c from ContasModel c")
     List<BuscarContas> findAllTodasContas();
 
-//    boolean existsByNome(String nome);
 }

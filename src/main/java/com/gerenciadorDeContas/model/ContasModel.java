@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -29,6 +31,7 @@ public class ContasModel {
     private String nome;
 
     @Column(length = 20)
+    @Min(value = 1)
     private double valor;
 
     @Column(length = 50)
@@ -36,6 +39,7 @@ public class ContasModel {
     private Tipo tipo;
 
     @Column(length = 20)
+    @NotNull
     private LocalDate dataDeVencimento;
 
     @Column(length = 20)

@@ -8,15 +8,12 @@ import com.gerenciadorDeContas.model.UpdateStatusConta;
 import com.gerenciadorDeContas.service.ContasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -56,24 +53,12 @@ public class ContasController {
     }
 
     @DeleteMapping(path = "/contas/{id}")
-    public String deletarContaCadastrada(@PathVariable Long id){
+    public ResponseEntity<String> deletarContaCadastrada(@PathVariable Long id){
      service.deletar(id);
-     return "Conta deletada com sucesso!";
+     return ResponseEntity.status(HttpStatus.NO_CONTENT).contentType(MediaType.TEXT_PLAIN).body("Deletado com sucesso");
     }
 
-    //método de validação pra atributo do tipo String
-    //caso preencha o atributo nome de forma inválida no momento do cadastro o sistema irá retornar uma mensagem especifica.
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
+
 
 
 }

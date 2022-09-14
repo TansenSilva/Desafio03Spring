@@ -6,7 +6,7 @@ import com.gerenciadorDeContas.Enum.Tipo;
 import com.gerenciadorDeContas.filter.BuscarContas;
 import com.gerenciadorDeContas.model.ContasModel;
 import com.gerenciadorDeContas.model.UpdateStatusConta;
-import com.gerenciadorDeContas.repository.ContasRepository;
+import com.gerenciadorDeContas.repository.IContasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class ContasService {
 
     @Autowired
-    private ContasRepository repository;
+    private IContasRepository repository;
 
     public Optional<ContasModel> buscarId(Long id){
         return repository.findById(id);
